@@ -129,5 +129,5 @@ curl -X GET \
  
  ### Setting up Environment variables
  
-- In root directory create a *.env.local* file
-- Copy the contents of *.env.local.example* and paste in *.env.local*
+- In root directory create a `.env.local` file
+- Copy the contents of `.env.local.example` and paste in `.env.local`
