@@ -7,7 +7,7 @@ import { NomineeType } from '../../hooks/useBallotsGet/types';
 
 type NomineeCardProps = {
   nominee: NomineeType;
-  onSelectNominee: () => void;
+  onSelectNominee?: () => void;
   isSelected?: boolean;
 };
 
@@ -27,15 +27,17 @@ const NomineeCard: VFC<NomineeCardProps> = (props) => (
         className={styles.nomineeCardImage}
       />
     </div>
-    <div className={styles.nomineeCardButtonContainer}>
-      <button
-        type="button"
-        className={styles.nomineeCardButton}
-        onClick={props.onSelectNominee}
-      >
-        Select
-      </button>
-    </div>
+    {!!props.onSelectNominee && (
+      <div className={styles.nomineeCardButtonContainer}>
+        <button
+          type="button"
+          className={styles.nomineeCardButton}
+          onClick={props.onSelectNominee}
+        >
+          Select
+        </button>
+      </div>
+    )}
   </div>
 );
 

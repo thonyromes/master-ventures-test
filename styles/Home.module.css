@@ -61,7 +61,8 @@
 }
 
 .nomineeCardTitle {
-  margin: var(--spacing-md) var(--spacing-sm);
+  margin: var(--spacing-sm);
+  margin-top: 0;
   text-align: center;
 }
 
@@ -107,6 +108,13 @@
 
 .nomineeCardSelected {
   background-color: var(--color-primary);
+}
+
+.yourVoteTitle {
+  margin-top: 0;
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+  color: var(--page-background-color);
 }
 
 @media screen and (min-width: 480px) {

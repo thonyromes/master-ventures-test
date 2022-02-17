@@ -2,10 +2,11 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 
 import styles from '../styles/Home.module.css';
-
 import { Category } from '../src/components/Category';
 import { FloatingButton } from '../src/components/Buttons';
 import { useHome } from '../src/hooks/useHome';
+import { BaseModal, ModalBody, ModalHeader } from '../src/components/Modals';
+import { NomineeCard } from '../src/components/NomineeCard';
 
 const Home: NextPage = () => {
   const controller = useHome();
@@ -54,9 +55,30 @@ const Home: NextPage = () => {
               ? 'Click to submit your vote'
               : 'Please select at least one nominee'
           }
+          onClick={controller.onSubmitVote}
         >
           SUBMIT BALLOT
         </FloatingButton>
+        <BaseModal
+          isOpen={controller.isModalOpen}
+          onDismiss={controller.onCloseModal}
+        >
+          <ModalHeader modalTitle="Voting Successful!"></ModalHeader>
+          <ModalBody>
+            <div>
+              <h3 className={styles.yourVoteTitle}>Your Votes</h3>
+
+              {controller.selectedNomineeData.map((item) => (
+                <div key={item.categoryId}>
+                  <h4 className={styles.categoryTitle}>
+                    In {item.categoryTitle}
+                  </h4>
+                  <NomineeCard nominee={item.nominee} />
+                </div>
+              ))}
+            </div>
+          </ModalBody>
+        </BaseModal>
       </main>
     </div>
   );
