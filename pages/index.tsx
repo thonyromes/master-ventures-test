@@ -57,7 +57,7 @@ const Home: NextPage = () => {
           }
           onClick={controller.onSubmitVote}
         >
-          SUBMIT BALLOT
+          {controller.hasSelectedNominees ? 'SUBMIT BALLOT' : 'No Selection'}
         </FloatingButton>
         <BaseModal
           isOpen={controller.isModalOpen}

@@ -1,22 +1,30 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 type UseModalProps = {
   isOpen?: boolean;
 };
 
 const useModal = (props: UseModalProps) => {
-  const bodyElement = document.querySelector('body');
+  const documentRef = useRef<HTMLBodyElement>();
 
-  if (bodyElement) {
+  if (documentRef.current) {
     if (props.isOpen) {
-      bodyElement.style.overflow = 'hidden';
+      documentRef.current.style.overflow = 'hidden';
     } else {
-      bodyElement.style.overflow = 'auto';
+      documentRef.current.style.overflow = 'auto';
     }
   }
 
+  useEffect(() => {
+    const bodyElement = document.querySelector('body');
+
+    if (bodyElement) {
+      documentRef.current = bodyElement;
+    }
+  }, []);
+
   return {
-    bodyElement,
+    documentRef,
   };
 };
 
