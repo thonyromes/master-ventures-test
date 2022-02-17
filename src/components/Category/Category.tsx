@@ -2,12 +2,15 @@ import React, { VFC } from 'react';
 
 import styles from '../../../styles/Home.module.css';
 
-import { BallotsItemType } from '../../hooks/useBallotsGet/types';
+import { BallotsItemType, NomineeType } from '../../hooks/useBallotsGet/types';
 
 import { NomineeCard } from '../NomineeCard';
+import { SelectedNomineeType } from '../../hooks/useHome/useHome';
 
 type CategoryProps = {
   ballot: BallotsItemType;
+  onSelectNominee: (nominee: NomineeType) => void;
+  selectedNomineeCategory?: SelectedNomineeType;
 };
 
 const Category: VFC<CategoryProps> = (props) => (
@@ -19,7 +22,13 @@ const Category: VFC<CategoryProps> = (props) => (
     <div className={styles.categoryContent}>
       {props.ballot.items?.map((nominee) => (
         <div className={styles.nomineeCardContainer} key={nominee.id}>
-          <NomineeCard nominee={nominee} />
+          <NomineeCard
+            nominee={nominee}
+            onSelectNominee={() => props.onSelectNominee(nominee)}
+            isSelected={
+              props.selectedNomineeCategory?.nominee.id === nominee.id
+            }
+          />
         </div>
       ))}
     </div>

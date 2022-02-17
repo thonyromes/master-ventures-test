@@ -18,6 +18,11 @@
   background-color: var(--background-color-hover);
 }
 
+.floatingButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 @media screen and (min-width: 480px) {
   .floatingButtonContainer {
     bottom: 2rem;

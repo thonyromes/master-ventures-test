@@ -49,12 +49,14 @@
   transition: all 0.2s ease-in-out;
 }
 
-.nomineeCard:hover {
+.nomineeCard:hover,
+.nomineeCardSelected {
   background-color: var(--background-color-hover);
   color: var(--text-color-primary);
 }
 
-.nomineeCard:hover > .nomineeCardImageContainer {
+.nomineeCard:hover > .nomineeCardImageContainer,
+.nomineeCardSelected > .nomineeCardImageContainer {
   border-color: var(--page-background-color-alt);
 }
 

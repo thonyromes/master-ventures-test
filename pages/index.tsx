@@ -5,16 +5,10 @@ import styles from '../styles/Home.module.css';
 
 import { Category } from '../src/components/Category';
 import { FloatingButton } from '../src/components/Buttons';
-import { useBallotsGet } from '../src/hooks/useBallotsGet';
-import { useEffect } from 'react';
+import { useHome } from '../src/hooks/useHome';
 
 const Home: NextPage = () => {
-  const { ballots, isLoadingBallot, ballotsError, hasBallots, getBallots } =
-    useBallotsGet();
-
-  useEffect(() => {
-    getBallots();
-  }, [getBallots]);
+  const controller = useHome();
 
   return (
     <div>
@@ -27,23 +21,42 @@ const Home: NextPage = () => {
       <main>
         <h2 className={styles.pageTitle}>AWARDS 2021</h2>
         <div className={styles.categoriesContainer}>
-          {isLoadingBallot ? (
+          {controller.isLoadingBallot ? (
             <div style={{ textAlign: 'center' }}>
               Loading Ballots, please wait...
             </div>
-          ) : ballotsError ? (
+          ) : controller.ballotsError ? (
             <div style={{ textAlign: 'center' }}>
-              An Error: {JSON.stringify(ballotsError)}
+              An Error: {JSON.stringify(controller.ballotsError)}
             </div>
-          ) : hasBallots ? (
-            ballots.map((ballot) => (
-              <Category key={ballot.id} ballot={ballot} />
+          ) : controller.hasBallots ? (
+            controller.ballots.map((ballot) => (
+              <Category
+                key={ballot.id}
+                ballot={ballot}
+                onSelectNominee={controller.onSelectNomineeCategory(
+                  ballot.id,
+                  ballot.title,
+                )}
+                selectedNomineeCategory={controller.selectedNomineeData.find(
+                  (item) => item.categoryId === ballot.id,
+                )}
+              />
             ))
           ) : (
             <div style={{ textAlign: 'center' }}>No ballots found</div>
           )}
         </div>
-        <FloatingButton>Submit Ballot</FloatingButton>
+        <FloatingButton
+          disabled={!controller.hasSelectedNominees}
+          title={
+            controller.hasSelectedNominees
+              ? 'Click to submit your vote'
+              : 'Please select at least one nominee'
+          }
+        >
+          SUBMIT BALLOT
+        </FloatingButton>
       </main>
     </div>
   );
