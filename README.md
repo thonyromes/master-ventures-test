@@ -127,7 +127,7 @@ curl -X GET \
  npm test
  ```
  
- # Setting up Environment variables
+ ### Setting up Environment variables
  
-- In root directly create a *.env.local* file
+- In root directory create a *.env.local* file
 - Copy the contents of *.env.local.example* and paste in *.env.local*
