@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { DataFetchEnum, ErrorStatusEnum } from '../enums';
 import { BallotsType, BallotsItemType } from './types';
 
-const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+const baseUrl = 'http://localhost:3000';
 const ballotsUrl = `${baseUrl}/api/ballots`;
 
 const useBallotsGet = () => {
