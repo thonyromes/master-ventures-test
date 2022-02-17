@@ -5,8 +5,17 @@ import styles from '../styles/Home.module.css';
 
 import { Category } from '../src/components/Category';
 import { FloatingButton } from '../src/components/Buttons';
+import { useBallotsGet } from '../src/hooks/useBallotsGet';
+import { useEffect } from 'react';
 
 const Home: NextPage = () => {
+  const { ballots, isLoadingBallot, ballotsError, hasBallots, getBallots } =
+    useBallotsGet();
+
+  useEffect(() => {
+    getBallots();
+  }, [getBallots]);
+
   return (
     <div>
       <Head>
@@ -18,8 +27,21 @@ const Home: NextPage = () => {
       <main>
         <h2 className={styles.pageTitle}>AWARDS 2021</h2>
         <div className={styles.categoriesContainer}>
-          <Category />
-          <Category />
+          {isLoadingBallot ? (
+            <div style={{ textAlign: 'center' }}>
+              Loading Ballots, please wait...
+            </div>
+          ) : ballotsError ? (
+            <div style={{ textAlign: 'center' }}>
+              An Error: {JSON.stringify(ballotsError)}
+            </div>
+          ) : hasBallots ? (
+            ballots.map((ballot) => (
+              <Category key={ballot.id} ballot={ballot} />
+            ))
+          ) : (
+            <div style={{ textAlign: 'center' }}>No ballots found</div>
+          )}
         </div>
         <FloatingButton>Submit Ballot</FloatingButton>
       </main>
